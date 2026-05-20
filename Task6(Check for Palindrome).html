@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Palindrome Checker</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Background animation */
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .animated-bg {
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5e9, #0f172a);
+      background-size: 400% 400%;
+      animation: bgMove 12s ease infinite;
+    }
+
+    /* Floating card */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Fade animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0px); }
+    }
+
+    .fade {
+      animation: fadeIn 0.4s ease;
+    }
+  </style>
+</head>
+
+<body class="animated-bg min-h-screen flex items-center justify-center px-4">
+
+  <!-- Card -->
+  <div class="float w-full max-w-md bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl p-8">
+
+    <!-- Title -->
+    <h1 class="text-3xl font-extrabold text-white text-center mb-2">
+      Palindrome Checker
+    </h1>
+
+    <p class="text-slate-300 text-center mb-6">
+      Check if your text is a palindrome
+    </p>
+
+    <!-- Input -->
+    <input
+      id="textInput"
+      type="text"
+      placeholder="e.g. racecar"
+      class="w-full p-4 rounded-2xl bg-white/10 text-white placeholder-slate-300 border border-white/20 focus:ring-2 focus:ring-cyan-400 outline-none transition"
+    />
+
+    <!-- Button -->
+    <button
+      onclick="checkPalindrome()"
+      class="w-full mt-4 py-4 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-bold text-lg shadow-lg hover:scale-105 active:scale-95 transition duration-300"
+    >
+      🔍 Check Palindrome
+    </button>
+
+    <!-- Result -->
+    <div class="mt-6 text-center">
+
+      <p class="text-slate-300 mb-2">Result</p>
+
+      <div
+        id="result"
+        class="fade bg-black/20 border border-white/10 rounded-2xl p-4 text-cyan-300 text-lg font-semibold"
+      >
+        Output will appear here...
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
+  <script>
+
+    function isPalindrome(str) {
+      let cleaned = str.toLowerCase().replace(/\s/g, '');
+      let reversed = cleaned.split('').reverse().join('');
+      return cleaned === reversed;
+    }
+
+    function checkPalindrome() {
+
+      const text = document.getElementById("textInput").value;
+
+      const result = isPalindrome(text);
+
+      const box = document.getElementById("result");
+
+      box.innerText =
+        result
+          ? `"${text}" is a Palindrome ✅`
+          : `"${text}" is NOT a Palindrome ❌`;
+
+      // restart animation
+      box.classList.remove("fade");
+      void box.offsetWidth;
+      box.classList.add("fade");
+    }
+
+  </script>
+
+</body>
+</html>

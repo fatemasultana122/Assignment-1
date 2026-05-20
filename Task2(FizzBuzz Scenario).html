@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FizzBuzz App</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body{
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Background Animation */
+    @keyframes gradient {
+      0%{
+        background-position: 0% 50%;
+      }
+      50%{
+        background-position: 100% 50%;
+      }
+      100%{
+        background-position: 0% 50%;
+      }
+    }
+
+    .animated-bg{
+      background: linear-gradient(
+        -45deg,
+        #0f172a,
+        #1e293b,
+        #312e81,
+        #0f172a
+      );
+
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+    }
+
+    /* Card Animation */
+    @keyframes float {
+      0%,100%{
+        transform: translateY(0px);
+      }
+      50%{
+        transform: translateY(-8px);
+      }
+    }
+
+    .float{
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Result Animation */
+    @keyframes fadeIn {
+      from{
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to{
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+
+    .fade{
+      animation: fadeIn .3s ease;
+    }
+
+    /* Scrollbar */
+    #result::-webkit-scrollbar{
+      width: 6px;
+    }
+
+    #result::-webkit-scrollbar-thumb{
+      background: #06b6d4;
+      border-radius: 50px;
+    }
+
+  </style>
+</head>
+
+<body class="animated-bg min-h-screen flex items-center justify-center px-4">
+
+  <!-- Card -->
+  <div class="float w-full max-w-md rounded-3xl bg-white/10 backdrop-blur-2xl border border-white/10 shadow-2xl p-6">
+
+    <!-- Heading -->
+    <div class="text-center">
+
+      <div class="w-20 h-20 mx-auto rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 flex items-center justify-center text-4xl shadow-lg mb-4">
+        ⚡
+      </div>
+
+      <h1 class="text-4xl font-extrabold text-white">
+        FizzBuzz
+      </h1>
+
+      <p class="text-slate-300 mt-2">
+        Simple Modern UI
+      </p>
+
+    </div>
+
+    <!-- Input -->
+    <div class="mt-6">
+
+      <input
+        type="number"
+        id="numberInput"
+        placeholder="Enter a number..."
+        class="w-full h-14 rounded-2xl bg-white/10 border border-white/10 px-5 text-white placeholder:text-slate-400 outline-none focus:ring-2 focus:ring-cyan-400 transition"
+      >
+
+    </div>
+
+    <!-- Button -->
+    <button
+      onclick="fizzBuzz()"
+      class="w-full h-14 mt-4 rounded-2xl bg-gradient-to-r from-cyan-400 to-blue-500 text-white font-bold text-lg hover:scale-[1.02] active:scale-95 transition duration-300 shadow-lg"
+    >
+      Run FizzBuzz
+    </button>
+
+    <!-- Result -->
+    <div class="mt-6">
+
+      <div class="flex items-center justify-between mb-3">
+
+        <h2 class="text-white font-semibold text-lg">
+          Output
+        </h2>
+
+        <div class="flex gap-2">
+          <div class="w-2 h-2 rounded-full bg-red-400"></div>
+          <div class="w-2 h-2 rounded-full bg-yellow-400"></div>
+          <div class="w-2 h-2 rounded-full bg-green-400"></div>
+        </div>
+
+      </div>
+
+      <!-- Result Box -->
+      <div
+        id="result"
+        class="h-64 overflow-y-auto rounded-2xl bg-black/20 border border-white/10 p-3 space-y-2"
+      >
+
+        <div class="h-full flex items-center justify-center text-slate-400 text-center">
+          Enter a number to generate output
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+
+    function fizzBuzz() {
+
+      let n = document.getElementById("numberInput").value;
+
+      let output = "";
+
+      for(let i = 1; i <= n; i++) {
+
+        if(i % 3 === 0 && i % 5 === 0) {
+
+          output += `
+            <div class="fade rounded-xl bg-pink-500/10 border border-pink-400/20 px-4 py-2 text-pink-300 font-bold">
+              🔥 FizzBuzz
+            </div>
+          `;
+        }
+
+        else if(i % 3 === 0) {
+
+          output += `
+            <div class="fade rounded-xl bg-cyan-500/10 border border-cyan-400/20 px-4 py-2 text-cyan-300 font-bold">
+              ⚡ Fizz
+            </div>
+          `;
+        }
+
+        else if(i % 5 === 0) {
+
+          output += `
+            <div class="fade rounded-xl bg-yellow-500/10 border border-yellow-400/20 px-4 py-2 text-yellow-300 font-bold">
+              ✨ Buzz
+            </div>
+          `;
+        }
+
+        else {
+
+          output += `
+            <div class="fade rounded-xl bg-white/5 border border-white/10 px-4 py-2 text-slate-200">
+              ${i}
+            </div>
+          `;
+        }
+
+      }
+
+      document.getElementById("result").innerHTML = output;
+
+    }
+
+  </script>
+
+</body>
+</html>
